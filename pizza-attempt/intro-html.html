@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width = device-width", initial-scale=1.0>
+      <title>Pizza Order</title>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <style>
+        .layout
+        {
+          display: grid;
+          grid-template-columns: 600px 1fr;
+          font-family: 'Open Sans', sans-serif;
+          grid-template-rows:auto auto auto;
+          grid-row-gap: 30px;
+          
+          
+        }
+
+        div > h2
+        {
+          color: rgb(112,118,143);
+        }
+
+        .userDetails__container
+        {
+          display:grid;
+          grid-template-rows:auto auto auto;
+        }
+
+        .userDetails__inputBoxes
+        {
+          display:grid;
+          grid-template-columns:auto auto auto;
+          grid-row-gap: 30px;
+        }
+
+        .userDetails__inputBox > span
+        {
+          color:red;
+        }
+
+        .selection__title
+        {
+          display:grid;
+          grid-template-columns: 1fr auto;
+
+        }
+
+        .selection__title > button
+        {
+          background: none;
+          border:none;
+          color: green;
+          outline: none;
+        }
+
+        .selection__body
+        {
+          margin-left: 30px;
+        }
+
+        .sizeselector__imgButtons
+        {
+          display:grid;
+          grid-template-columns: auto auto auto;
+        }
+
+        .sizeselector__imgButton
+        {
+          display:grid;
+          grid-template-columns: auto 1fr;
+        }
+
+
+        .sizeselector__imgButton > button
+        {
+          padding: 0px 20px;
+          background: none;
+          border:none;
+        }
+        
+        .toppingSelector__toppings
+        {
+          display:grid;
+          grid-template-columns: auto auto auto auto;
+          grid-row-gap: 20px;
+          grid-column-gap: 15px;
+
+        }
+
+        .toppingSelector__topping
+        {
+          display:grid;
+          grid-template-columns: auto 1fr;
+        }
+
+        .toppingSelector__topping > button
+        {
+          background: transparent;
+          border: none;
+          text-align: left;
+        }
+
+        .toppingSelector__topping > button:focus
+        {
+          background:rgb(10,144,235);
+          border: none;
+          text-align: left;
+        }
+
+      </style>
+    </head>
+
+    <body>
+      <div class="layout">
+        <div class="layout__left">
+        </div>
+        <div class="layout__right">
+            <div class="userDetails__container">
+                <h2>Enter Your Details</h2>
+                <form>
+                  <div class="userDetails__inputBoxes">
+                    <div class="userDetails__inputBox">
+                        <label>NAME</label>
+                        <span>*</span>
+                        <span>FIELD IS REQUIRED</span>
+                        <br>
+                        <input type="text">
+                    </div>
+        
+                    <div class="userDetails__inputBox">
+                        <label>EMAIL</label>
+                        <span>*</span>
+                        <span>FIELD IS REQUIRED</span>
+                        <br>
+                        <input type="text">
+                    </div>
+        
+                    <div class="userDetails__inputBox">
+                        <label>COMFIRM</label>
+                        <span>*</span>
+                        <span>FIELD IS REQUIRED</span>
+                        <br>
+                        <input type="text">
+                    </div>
+      
+                    <div class="userDetails__inputBox">
+                        <label>ADDRESS</label>
+                        <span>*</span>
+                        <span>FIELD IS REQUIRED</span>
+                        <br>
+                        <input type="text">
+                    </div>
+        
+                    <div class="userDetails__inputBox">
+                        <label>POSTCODE</label>
+                        <span>*</span>
+                        <span>FIELD IS REQUIRED</span>
+                        <br>
+                        <input type="text">
+                    </div>
+        
+                    <div class="userDetails__inputBox">
+                        <label>CONTACT NUMBER</label>
+                        <span>*</span>
+                        <span>FIELD IS REQUIRED</span>
+                        <br>
+                        <input type="text">
+                    </div>
+                  </div>   
+                </form>
+      
+                
+      
+              </div>
+              <div class = "selection__container">
+                  <div class="selection__title">
+                      <h2>Choose Your Pizzas</h2>
+                      <button type="button">+Add another pizza</button>
+                  </div>
+                  <div class="selection__body">
+                      <div class="selection__sizeSelector">
+                          <h3>Select the size</h3>
+                          <div class="sizeselector__imgButtons">
+                              <a class="sizeselector__imgButton">
+                                <button>
+                                    <img src = "img/pizza.png">
+                                </button>
+                                  
+                                  <div>
+                                      <p>Large</p>
+                                      <p>13''</p>
+                                  </div>                      
+                              </a>
+                              <a class="sizeselector__imgButton">
+                                  <button>
+                                      <img src = "img/pizza.png">
+                                  </button>
+                                  <div>
+                                      <p>Medium</p>
+                                      <p>11''</p>
+                                  </div>
+                                  
+                              </a>
+                              <a class="sizeselector__imgButton">
+                                  <button>
+                                      <img src = "img/pizza.png">
+                                  </button>
+                                  <div>
+                                      <p>Small</p>
+                                      <p>9''</p>
+            
+                                  </div>  
+                              </a>
+                          </div>             
+                        </div>
+                        <div class="selection__toppingSelector">
+                          <h3>Pick your toppings</h3>
+                          <div class="toppingSelector__toppings">
+                            <div class="toppingSelector__topping">
+                              <img src="img/toppings.png">
+                              <button>Anchovy</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Bacon</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Basil</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Chill</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Mozzarella</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Mushroom</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Olive</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Onion</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Pepper</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Pepperoni</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Sweetcorn</button>
+                            </div>
+                            <div class="toppingSelector__topping">
+                                <img src="img/toppings.png">
+                                <button>Tomato</button>
+                            </div>
+                          </div>
+                          
+            
+                        </div>
+                  </div>
+                  
+              </div>
+              <div class="summery__container">
+                <h2>Order Summery</h2>
+                <h3>xxxPizza</h3>
+              </div>
+        </div>
+
+
+      </div>
+        
+            
+        
+
+    </body>
+</html>
