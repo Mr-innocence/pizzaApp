@@ -5,6 +5,143 @@
       <meta name="viewport" content="width = device-width", initial-scale=1.0>
       <title>Pizza Order</title>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <script>
+
+        function chooseTopping(element){
+          const activeClassName = "topping--active";
+          const chosenTopping = element.classList.contains(activeClassName);
+          function active(){
+            element.classList.add(activeClassName);
+            addToSummaryList(element);
+            addMoney(element);
+          }
+
+          function deActive(){
+            element.classList.remove(activeClassName);
+            removeFromSummeryList(element);
+            minMoney(element);
+          }
+
+          if(chosenTopping){
+            deActive();
+          }else{
+            active();
+          }
+        }
+
+
+        function removeFromSummeryList(element){
+          const itemName = element.dataset.name;
+          const items = document.querySelectorAll(".item");
+
+          items.forEach((item) =>{
+            if(item.querySelector(".item__name").innerText !== itemName){
+              return;
+            }
+            item.parentElement.removeChild(item);      
+          })
+
+        }
+
+        function addToSummaryList(element){
+          const { name, price } = element.dataset;
+          const nameSpan = document.createElement("span");
+          nameSpan.classList.add("item__name");
+          nameSpan.innerText = name;
+
+          const priceSpan = document.createElement("span");
+          priceSpan.classList.add("item__price");
+          priceSpan.innerText = `$${price}`;
+
+          const itemList = document.createElement("li");
+          itemList.classList.add("item");
+          itemList.append(nameSpan);
+          itemList.append(priceSpan);
+
+          const summeryList = document.createElement("ul");
+          summeryList.append(itemList);
+          debugger;
+
+          const summery = document.querySelector(".items");
+          summery.append(summeryList);
+
+          
+        }
+
+        function addMoney(element){
+          const price = element.dataset.price;
+          const totalAmount = document.querySelector(".summeray__totalAmount")
+          totalAmount.innerText = (parseFloat(totalAmount.innerText) + parseFloat(price)).toFixed(2);
+        }
+
+        function minMoney(element){
+          const price = element.dataset.price;
+          const totalAmount = document.querySelector(".summeray__totalAmount")
+          totalAmount.innerText = (parseFloat(totalAmount.innerText) - parseFloat(price)).toFixed(2);
+
+        }
+
+        function addSizeToSummeryList(element){         
+          const {name, price} = element.dataset;         
+          const nameSpan = document.createElement("span");
+          nameSpan.classList.add("size__name");
+          nameSpan.innerText = name;
+
+          const priceSpan = document.createElement("span");
+          priceSpan.classList.add("size__price");
+          priceSpan.innerText = `$${price}`;
+          
+          const priceList = document.createElement("ul");
+          priceList.classList.add("size__summeryList");
+          priceList.append(nameSpan);
+          priceList.append(priceSpan);
+
+          const summary = document.querySelector(".chosenSize");
+          summary.append(priceList);
+        }
+
+        function removeSizeFromSummeryList(element){
+          const name = element.dataset.name;
+          const sizes = document.querySelectorAll(".chosenSize");
+
+          sizes.forEach((thisSize) =>{
+            if(thisSize.querySelector(".size__name").innerText !== name){
+              return;
+            }
+            thisSize.parentElement.removeChild(thisSize);      
+          });
+
+          
+          
+        }
+
+        
+        function chooseSize(element){
+
+          const chosenSize = document.querySelector(".size--active");
+          const allSizeType = document.querySelectorAll(".size");   
+          if(chosenSize === null ){
+            element.classList.add("size--active");
+            addSizeToSummeryList(element);
+            addMoney(element);
+          }else if(chooseSize !== element){
+            minMoney(chosenSize);
+            chosenSize.classList.remove("size--active");
+            removeSizeFromSummeryList(chosenSize);
+            element.classList.add("size--active");
+            addSizeToSummeryList(element);
+            addMoney(element);
+          }
+          else{
+            minMoney(chosenSize);
+            chosenSize.classList.remove("size--active");
+            removeSizeFromSummeryList(chosenSize);
+          }
+          
+        }
+      
+      
+      </script>
       <style>
         body
         {
@@ -200,14 +337,11 @@
                   </div>
                 </div>   
               </form>
-    
-              
-    
           </div>
           <div class = "section sizes">           
             <h2>Select Your size</h2>
             <div class="sizes__container">
-              <div class="size size--small size--active">
+              <div class="size size--small" data-name = "small" data-price = "9.99" onclick="chooseSize(this)">
                   <img src = "assets/size.png" alt="small">
                   <div>
                       Small
@@ -216,7 +350,7 @@
                   </div>                      
               </div>
 
-              <div class="size size--medium">
+              <div class="size size--medium" data-name = "medium" data-price ="10.99"  onclick="chooseSize(this)">
                     <img src = "assets/size.png" alt="medium">
                   <div>
                       Medium
@@ -225,7 +359,7 @@
                   </div>                 
               </div>
 
-              <div class="size size--large">
+              <div class="size size--large" data-name = "large" data-price = "11.9" onclick="chooseSize(this)">
                     <img src = "assets/size.png" alt="large"> 
                   <div>
                       Large
@@ -238,80 +372,64 @@
           <div class = "section toppings">             
             <h3>Pick your toppings</h3>
             <div class="toppings__container">
-              <div class="topping">
+              <div class="topping" data-name = "Anchovy" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/anchovy.svg" alt = "Anchovy">
                   <span>Anchovy</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Bacon" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/bacon.svg" alt = "Bacon">
                   <span>Bacon</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Basil" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/basil.svg" alt = "Basil">
                   <span>Basil</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Chili" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/chili.svg" alt = "Chili">
                   <span>Chili</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Mozzarella" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/mozzarella.svg" alt = "Mozzarella">
                   <span>Mozzarella</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Mushroom" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/mushroom.svg" alt = "Mushroom">
                   <span>Mushroom</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Olive" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/olive.svg" alt = "Olive">
                   <span>Olive</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Onion" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/onion.svg" alt = "Onion">
                   <span>Onion</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Pepper" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/pepper.svg" alt = "Pepper">
                   <span>Pepper</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Pepperoni" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/pepperoni.svg" alt = "Pepperoni">
                   <span>Pepperoni</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Peppers" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="./assets/toppings/peppers.svg" alt="Peppers">
                   <span>Peppers</span>
               </div>
-              <div class="topping">
+              <div class="topping" data-name = "Sweetcorn" data-price = "0.99" onclick="chooseTopping(this); ">
                   <img src="assets/toppings/sweetcorn.svg" alt = "Sweetcorn">
                   <span>Sweetcorn</span>
               </div>
             </div>
           </div>
-          <div class="section summary">
+          <div class="section__summary">
             <h2>Summery</h2>
-            <ul class="items">
-              <li class="item">
-                <span class="item__name">Pizza (Small)</span>
-                <span class="item__price">$9.99</span>
-              </li>
-              <li class="item">
-                <span class="item__name">Olive</span>
-                <span class="item__price">$0.99</span>
-              </li>
-              <li class="item">
-                <span class="item__name">Peppers</span>
-                <span class="item__price">$0.99</span>
-              </li>
-              <li class="item">
-                <span class="item__name">Pepperoni</span>
-                <span class="item__price">$0.99</span>
-              </li>
-            </ul>
+            <div class = "chosenSize"></div>
+            <div class="items"></div>
             <hr>
             <p class="summary__total">
               <span>Total:</span>
-              <span>$ 12.96</span>
+              $<span class = "summeray__totalAmount">0</span>
             </p>
             <p>
               <button type="submit">
