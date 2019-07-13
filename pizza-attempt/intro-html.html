@@ -238,54 +238,6 @@
           <div class = "section toppings">             
             <h3>Pick your toppings</h3>
             <div class="toppings__container">
-              <div class="topping">
-                  <img src="assets/toppings/anchovy.svg" alt = "Anchovy">
-                  <span>Anchovy</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/bacon.svg" alt = "Bacon">
-                  <span>Bacon</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/basil.svg" alt = "Basil">
-                  <span>Basil</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/chili.svg" alt = "Chili">
-                  <span>Chili</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/mozzarella.svg" alt = "Mozzarella">
-                  <span>Mozzarella</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/mushroom.svg" alt = "Mushroom">
-                  <span>Mushroom</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/olive.svg" alt = "Olive">
-                  <span>Olive</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/onion.svg" alt = "Onion">
-                  <span>Onion</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/pepper.svg" alt = "Pepper">
-                  <span>Pepper</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/pepperoni.svg" alt = "Pepperoni">
-                  <span>Pepperoni</span>
-              </div>
-              <div class="topping">
-                  <img src="./assets/toppings/peppers.svg" alt="Peppers">
-                  <span>Peppers</span>
-              </div>
-              <div class="topping">
-                  <img src="assets/toppings/sweetcorn.svg" alt = "Sweetcorn">
-                  <span>Sweetcorn</span>
-              </div>
             </div>
           </div>
           <div class="section summary">
@@ -319,7 +271,107 @@
               </button>
             </p>
           </div>
-      </section>      
+      </section>  
+
+    </div>
+      
+      <script>
+        // let toppingSelectedState = false;
+        // function setToppingSelectedState(value){
+        //   toppingSelectedState = value;
+        //   const toppingsContainer = document.querySelector('.toppings__container');
+        //   toppingsContainer.innerHTML = "";
+        //   const anchovyToppingDiv = renderTopping(toppingSelectedState);
+        //   toppingsContainer.append(anchovyToppingDiv);
+
+        // }
+
+        let toppingsState = [
+        {
+          name: 'Anchovy',
+          imgSrc: './assets/toppings/anchovy.svg'
+        },
+        {
+          name: 'Bacon',
+          imgSrc: './assets/toppings/bacon.svg'
+        },
+        {
+          name: 'Basil',
+          imgSrc: './assets/toppings/basil.svg'
+        },
+        {
+          name: 'Chili',
+          imgSrc: './assets/toppings/chili.svg'
+        },
+        {
+          name: 'Mozzarella',
+          imgSrc: './assets/toppings/mozzarella.svg'
+        },
+        {
+          name: 'Mushroom',
+          imgSrc: './assets/toppings/mushroom.svg'
+        },
+        {
+          name: 'Olive',
+          imgSrc: './assets/toppings/olive.svg'
+        },
+        {
+          name: 'Onion',
+          imgSrc: './assets/toppings/onion.svg'
+        },
+        {
+          name: 'Pepper',
+          imgSrc: './assets/toppings/pepper.svg'
+        },
+        {
+          name: 'Pepperoni',
+          imgSrc: './assets/toppings/pepperoni.svg'
+        },
+        {
+          name: 'Peppers',
+          imgSrc: './assets/toppings/peppers.svg'
+        },
+        {
+          name: 'Sweetcorn',
+          imgSrc: './assets/toppings/sweetcorn.svg'
+        },
+        ];
+
+        const chosenToppingsState = ['Peppers'];
+
+        const toppingsContainer = document.querySelector('.toppings__container');
+        const toppingDivs = renderToppings(toppingsState, chosenToppingsState);
+        toppingsContainer.append(...toppingDivs);
+
+        
+
+        function renderToppings(toppings, chosenToppings){
+
+          function getToppingDivFromTopping( {name, imgSrc}){
+            const toppingImg = document.createElement('img');
+            toppingImg.src = imgSrc;
+            toppingImg.alt = name;
+            const toppingDescript = document.createElement('span');
+            toppingDescript.innerText = name
+            const toppingDiv = document.createElement('div');
+            toppingDiv.classList.add("topping");
+
+            if(chosenToppings.includes(name))
+            {
+              toppingDiv.classList.add('topping--active');
+
+            }
+
+
+
+            toppingDiv.append(toppingImg, toppingDescript);
+            return toppingDiv;
+          }
+          return toppings.map(getToppingDivFromTopping)
+        }
+        
+
+      </script>
   </body>
 
 </html>
