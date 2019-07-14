@@ -1,9 +1,12 @@
-function renderTopping({ topping, active}){
+function renderTopping({ topping, activated, onClick}){
     const {imgSrc, name} = topping;
     const toppingDiv = document.createElement('div');
     toppingDiv.classList.add('topping');
 
-    function setActive(){
+    toppingDiv.onclick = () => onClick(topping);
+
+
+    function setActivate(){
         toppingDiv.classList.add('topping--active');
     }
 
@@ -14,8 +17,8 @@ function renderTopping({ topping, active}){
     const nameSpan = document.createElement('span');
     nameSpan.innerText = name;
 
-    if(active){
-        setActive();
+    if(activated){
+        setActivate();
     }
 
     toppingDiv.append(toppingImg, nameSpan);
@@ -23,31 +26,8 @@ function renderTopping({ topping, active}){
     return toppingDiv;
 }
 
-function renderToppings({toppings, selectedToppingNames}){
-    const toppingsDiv = document.createElement('div');
-    toppingsDiv.classList.add("toppings__container");
-
-    function getToppingDiv(topping){
-        const { name } = topping;
-        const active = selectedToppingNames.includes(name);
-
-        return renderTopping({ topping, active});
-    }
-    const toppingDivs = toppings.map(getToppingDiv);
-    toppingsDiv.append(...toppingDivs);
-
-    return toppingsDiv
-}
-
-function renderTitle({title}) {
-    const titleH2 = document.createElement('h2');
-    titleH2.innerText = title;
-
-    return titleH2;
-}
-
-function renderChooseYourToppings(){
-    const state = {
+function renderToppings(){
+    let state = {
         toppings: [
             {
                 name: 'Anchovy',
@@ -112,11 +92,67 @@ function renderChooseYourToppings(){
             ], 
         selectedToppingNames: ['Pepper'],
     }
+
+    function onToppingDivClick(topping){
+        const { name } = topping;
+        const activated = selectedToppingNames.includes(name);
+
+        function deactive()
+        {
+            const newSelectedToppingNames = selectedToppingNames.filter(thisName => thisName !== name);
+            state = {
+                ...state,
+                selectedToppingNames: newSelectedToppingNames
+            };
+            render();
+        }
+
+        function activate(){
+            const newSelectedToppingNames = [...selectedToppingNames, name];
+            state = {
+                ...state,
+                selectedToppingNames: newSelectedToppingNames
+            };
+            render();            
+        }
+
+        if(activated){
+            deactive();
+            return;           
+        }
+        activate();
+    }
+
+    const { toppings, selectedToppingNames } = state;
+    
+    const toppingsDiv = document.createElement('div');
+    toppingsDiv.classList.add("toppings__container");
+
+    function getToppingDiv(topping){
+        const { name } = topping;
+        const activated = selectedToppingNames.includes(name);
+
+        return renderTopping({ topping, activated, onClick: onToppingDivClick});
+    }
+    const toppingDivs = toppings.map(getToppingDiv);
+    toppingsDiv.append(...toppingDivs);
+
+    return toppingsDiv
+}
+
+function renderTitle({title}) {
+    const titleH2 = document.createElement('h2');
+    titleH2.innerText = title;
+
+    return titleH2;
+}
+
+function renderChooseYourToppings(){
     const chooseYourToppingsSection = document.createElement('section');
     chooseYourToppingsSection.classList.add('section', 'toppings');
 
     const chooseYourToppingsTitle = renderTitle({title: 'choose your topping'});
-    const chooseYourToppings = renderToppings(state);
+    const chooseYourToppings = renderToppings();
 
     chooseYourToppingsSection.append(chooseYourToppingsTitle, chooseYourToppings);
 
@@ -125,10 +161,18 @@ function renderChooseYourToppings(){
 
 function renderPizzaCreator(){
     const pizzaCreatorDiv = document.createElement('div');
+    pizzaCreatorDiv.classList.add('pizza-creator-app');
 
     const chooseYourToppings = renderChooseYourToppings();
 
     pizzaCreatorDiv.append(chooseYourToppings);
 
     return pizzaCreatorDiv;
+}
+
+function render(){
+    const root = document.querySelector('#root');
+    const pizzaCreator = renderPizzaCreator();
+    root.innerHTML = null;
+    root.append(pizzaCreator);
 }
