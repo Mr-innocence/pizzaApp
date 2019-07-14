@@ -276,16 +276,6 @@
     </div>
       
       <script>
-        // let toppingSelectedState = false;
-        // function setToppingSelectedState(value){
-        //   toppingSelectedState = value;
-        //   const toppingsContainer = document.querySelector('.toppings__container');
-        //   toppingsContainer.innerHTML = "";
-        //   const anchovyToppingDiv = renderTopping(toppingSelectedState);
-        //   toppingsContainer.append(anchovyToppingDiv);
-
-        // }
-
         let toppingsState = [
         {
           name: 'Anchovy',
@@ -343,8 +333,6 @@
         const toppingDivs = renderToppings(toppingsState, chosenToppingsState);
         toppingsContainer.append(...toppingDivs);
 
-        
-
         function renderToppings(toppings, chosenToppings){
 
           function getToppingDivFromTopping( {name, imgSrc}){
@@ -362,15 +350,11 @@
 
             }
 
-
-
             toppingDiv.append(toppingImg, toppingDescript);
             return toppingDiv;
           }
           return toppings.map(getToppingDivFromTopping)
         }
-        
-
       </script>
   </body>
 
