@@ -1,4 +1,21 @@
 let state = {
+    sizes: [
+        {
+            name: 'Small',
+            imgSrc: './assets/size.png',
+            price: 9.99,
+        },
+        {
+            name: 'Medium',
+            imgSrc: './assets/size.png',
+            price: 10.99,
+        },
+        {
+            name: 'Large',
+            imgSrc: './assets/size.png',
+            price: 11.99,
+        },
+    ],
     toppings: [
         {
             name: 'Anchovy',
@@ -61,7 +78,8 @@ let state = {
             price: 0.99,
         },
         ], 
-    selectedToppingNames: ['Pepper'],
+    selectedToppingNames: [],
+    selectedSizeName: [],
 }
 
 function onToppingDivClick(topping){
@@ -80,11 +98,13 @@ function onToppingDivClick(topping){
     }
 
     function activate(){
+        console.log(state.selectedToppingNames);
         const newSelectedToppingNames = [...selectedToppingNames, name];
         state = {
             ...state,
             selectedToppingNames: newSelectedToppingNames
         };
+        console.log(state.selectedToppingNames);
         render();            
     }
 
@@ -95,6 +115,39 @@ function onToppingDivClick(topping){
     activate();
 }
 
+function onSizeClick(size){
+    const { name } = size;
+    const { selectedSizeName } = state;
+    const activated = selectedSizeName.includes(name);
+
+    function deactive()
+    {
+        const newSelectedSizeName = selectedSizeName.filter(thisName => thisName !== name);
+        state = {
+            ...state,
+            selectedSizeName: newSelectedSizeName
+        };
+        render();
+    }
+
+    function activate(){
+        console.log(state.selectedSizeName);
+        const newSelectedSizeName = [name];
+        state = {
+            ...state,
+            selectedSizeName: newSelectedSizeName
+        };
+        console.log(state.selectedSizeName);
+        render();            
+    }
+
+    if(activated){
+        deactive();
+        return;           
+    }
+    activate();
+
+}
 function renderTopping({ topping, activated, onClick}){
     const {imgSrc, name} = topping;
     const toppingDiv = document.createElement('div');
@@ -160,13 +213,92 @@ function renderChooseYourToppings(state){
     return chooseYourToppingsSection;
 }
 
+function renderChooseYourSize(state){
+    const chooseYourSizeSection = document.createElement('section');
+    chooseYourSizeSection.classList.add('section', 'sizes');
+
+    const chooseYourSizeTitle = renderTitle({title: 'Select Your size'});
+    const chooseYourSizes = renderSizes(state);
+
+    chooseYourSizeSection.append(chooseYourSizeTitle, chooseYourSizes);
+
+    return chooseYourSizeSection;
+}
+
+function renderSizes(state){
+    const {sizes, selectedSizeName} = state;
+    const sizesDiv = document.createElement('div');
+    sizesDiv.classList.add('sizes__container');
+
+    function getSizeDiv(size){
+        const { name } = size;
+        const activated = selectedSizeName.includes(name);
+        return renderSize({size, activated, onClick: onSizeClick});
+    }
+    const sizeDivs = sizes.map(getSizeDiv);
+    sizesDiv.append(...sizeDivs);
+    
+    return sizesDiv;
+}
+
+function renderSize({size, activated, onClick}){
+    const { name, imgSrc, price } = size;
+    const sizeDiv = document.createElement('div');
+    sizeDiv.classList.add('size', 'size--small');
+
+    sizeDiv.onclick = () => onClick(size);
+
+    const sizeImg = document.createElement('img');
+    sizeImg.src = imgSrc;
+    sizeImg.alt = name;
+    
+    const sizeDescript = document.createElement('div');
+    sizeDescript.innerHTML = name;
+
+    const sizeSpan = document.createElement('span');
+    sizeSpan.innerText = price;
+    sizeSpan.classList.add('size__price');
+
+    function setSizeActivate(){
+        
+        sizeDiv.classList.add('size--active');
+    }
+
+    if(activated){
+        setSizeActivate();
+    }
+    
+    sizeDescript.append(sizeSpan);
+    sizeDiv.append(sizeImg, sizeDescript);
+
+    return sizeDiv;
+}
+
+
+
+
+
+{/* <div class = "section sizes">           
+            <h2>Select Your size</h2>
+            <div class="sizes__container">
+              <div class="size size--small size--active">
+                  <img src = "assets/size.png" alt="small">
+                  <div>
+                      Small
+                    <br />
+                    <span class="size__price">$9.99</span>
+                  </div>                      
+              </div> */}
+
 function renderPizzaCreator(state){
     const pizzaCreatorDiv = document.createElement('div');
     pizzaCreatorDiv.classList.add('pizza-creator-app');
-
+    
+    const chooseYourSize = renderChooseYourSize(state);
     const chooseYourToppings = renderChooseYourToppings(state);
 
-    pizzaCreatorDiv.append(chooseYourToppings);
+
+    pizzaCreatorDiv.append(chooseYourSize, chooseYourToppings);
 
     return pizzaCreatorDiv;
 }
