@@ -1,4 +1,4 @@
-export class HelloWorld extends RTCIceCandidate.Component{
+export class HelloWorld extends React.Component{
     render()
 {
     return (
