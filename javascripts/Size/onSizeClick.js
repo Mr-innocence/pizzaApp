@@ -1,4 +1,5 @@
-function onSizeClick(size){
+import { render } from '../../index';
+export function onSizeClick(size){
     const { name } = size;
     const { selectedSizeName } = state;
     const activated = selectedSizeName.includes(name);

@@ -1,4 +1,7 @@
-function renderChooseYourSize(state){
+import { renderTitle } from '../renderTitle';
+import { renderSizes } from './renderSizes';
+
+export function renderChooseYourSize(state){
     const chooseYourSizeSection = document.createElement('section');
     chooseYourSizeSection.classList.add('section', 'sizes');
 

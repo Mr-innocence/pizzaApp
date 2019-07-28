@@ -1,9 +1,11 @@
-function renderSize({size, activated, onClick}){
+import { onSizeClick } from './onSizeClick';
+
+export function renderSize({size, activated, onClick}){
     const { name, imgSrc, price } = size;
     const sizeDiv = document.createElement('div');
     sizeDiv.classList.add('size', 'size--small');
 
-    sizeDiv.onclick = () => onClick(size);
+    sizeDiv.onclick = () => onSizeClick(size);
 
     const sizeImg = document.createElement('img');
     sizeImg.src = imgSrc;

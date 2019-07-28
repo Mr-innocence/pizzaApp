@@ -1,4 +1,6 @@
-function renderSizes(state){
+import { renderSize } from './renderSize';
+
+export function renderSizes(state){
     const {sizes, selectedSizeName} = state;
     const sizesDiv = document.createElement('div');
     sizesDiv.classList.add('sizes__container');

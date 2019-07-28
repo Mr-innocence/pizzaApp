@@ -1,4 +1,4 @@
-function renderSummayList(state){
+export function renderSummayList(state){
     const summayListDiv = document.createElement('div');
     summayListDiv.classList.add('section', 'summay');
     const summayListTitle = renderTitle({title: 'Summery'});

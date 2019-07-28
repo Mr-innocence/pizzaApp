@@ -1,4 +1,5 @@
-function onToppingDivClick(topping){
+import { render } from '../../index';
+export function onToppingDivClick(topping){
     const { name } = topping;
     const { selectedToppingNames } = state;
     const activated = selectedToppingNames.includes(name);

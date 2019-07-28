@@ -1,3 +1,5 @@
+import { renderPizzaCreator } from './javascripts/renderPizzaCreator';
+
 let state = {
     sizes: [
         {
@@ -82,7 +84,7 @@ let state = {
     selectedSizeName: [],
 }
 
-function render(){
+export function render(){
     const root = document.querySelector('#root');
     const pizzaCreator = renderPizzaCreator(state);
     root.innerHTML = null;

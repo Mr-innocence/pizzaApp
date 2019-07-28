@@ -1,4 +1,6 @@
-function renderChooseYourToppings(state){
+import { renderTitle } from '../renderTitle';
+import { renderToppings } from './renderTopping';
+export function renderChooseYourToppings(state){
     const chooseYourToppingsSection = document.createElement('section');
     chooseYourToppingsSection.classList.add('section', 'toppings');
 

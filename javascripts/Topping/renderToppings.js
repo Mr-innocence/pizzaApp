@@ -1,4 +1,6 @@
-function renderToppings(state){
+import { renderTopping } from './renderTopping';
+
+export function renderToppings(state){
     const { toppings, selectedToppingNames } = state;
     
     const toppingsDiv = document.createElement('div');

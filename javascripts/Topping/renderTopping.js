@@ -1,9 +1,11 @@
-function renderTopping({ topping, activated, onClick}){
+import { onToppingDivClick } from './onToppingDivClick';
+
+export function renderTopping({ topping, activated, onClick}){
     const {imgSrc, name} = topping;
     const toppingDiv = document.createElement('div');
     toppingDiv.classList.add('topping');
 
-    toppingDiv.onclick = () => onClick(topping);
+    toppingDiv.onclick = () => onToppingDivClick(topping);
 
 
     function setActivate(){
