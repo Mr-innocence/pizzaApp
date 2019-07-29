@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width = device-width", initial-scale=1.0>
+      <title>Pizza Order</title>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+      <style>
+        body
+        {
+          font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+        .pizza-creator-app
+        {
+          display: grid;
+          grid-template-rows:auto auto auto;
+
+        }
+        .userDetails__container
+        {
+          display: grid;
+          grid-template-columns: repeat(3,1fr);
+          grid-gap: 1rem 2rem;
+        }
+        .detail 
+        {
+          display: grid;
+          grid-template-rows: 1fr auto;
+          grid-row-gap: 0.5rem;
+        }
+        .detail > label
+        {
+          text-transform: uppercase;
+          font-size: small;
+          font-weight: bold;
+          color: #6E7790;
+        }
+        .detail > input
+        {
+          border-radius: 2px;
+          border: 1px solid #d7d7e7;
+          font-size: 1.2rem;
+          color: rgba(0, 0, 0, 0.8);
+          padding: 0.5rem 1rem;
+        }
+        .detail > input:hover,
+        .detail > input:focus 
+        {
+          border-color: #1a98e1;
+        }
+        .detail > input:focus 
+        {
+          box-shadow: 0 0 0 2px #1a98e133;
+        }
+        .sizes__container
+        {
+          display: grid;
+          grid-template-columns: repeat(3,1fr);
+          grid-gap: 2rem; 
+          align-items: center;
+        }
+        .size > img 
+        {
+          --width: 100px;
+          border: 5px solid transparent;
+          border-radius: 50%;
+        }
+        .size:hover > img 
+        {
+          border-color: rgba(0, 0, 0, 0.2);
+        }
+        .size:hover {
+          color: #1a98e1;
+        }
+        .size--small > img 
+        {
+          width: calc(var(--width) * 0.8);
+        }
+        .size--medium > img 
+        {
+          width: calc(var(--width) * 1);
+        }
+        .size--large > img 
+        {
+          width: calc(var(--width) * 1.2);
+        }
+        .size__price
+        {
+          margin-top: 0.5rem;
+          color: rgba(0, 0, 0, 0.8);
+          font-size: small;      
+        }
+        .size--active > img {
+          border-color: rgba(0, 0, 0, 0.2)!important;
+        }
+        .toppings__container
+        {
+          display: grid;
+          grid-template-columns: repeat(4,1fr);
+          grid-gap: 1rem 2rem;
+        }
+
+        .topping {
+          border-radius: 2px;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          align-items: center;
+          grid-gap: 1rem;
+          background: #f2f2f2;
+          cursor: pointer;
+          border: 1px solid transparent;
+        }
+
+        .topping:hover {
+          border-color: #1a98e1;
+          color: #1a98e1;
+        }
+
+        .topping--active {
+          background: #1a98e1;
+          color: white!important;
+        }
+
+        .topping > img {
+          width: 50px;
+          height: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+          background: #e6e6e6;
+        }
+
+        .topping > span {
+          padding: 0.75rem 0;
+        }
+
+        .summary ul
+        {
+          padding: 0;
+          
+        }
+        .item
+        {
+          display: grid;
+          grid-template-columns: 1fr auto;
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          background: #98C550;
+          border: none;
+          padding: 10px 15px;
+          text-align: center;
+          font-size: 1.2rem;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+          background: #98C550E6;;
+        }
+
+      </style>
+    </head>
+
+    <body>
+      <section class="pizza-creator-app">
+          <div class="section details">
+              <h2>Enter your details</h2>
+              <form>
+                <div class="userDetails__container">
+                  <div class="detail">
+                      <label for="name">name</label>
+                      <input type="text" id="name">
+                  </div>
+      
+                  <div class="detail">
+                      <label for="email">email</label>
+                      <input type="text" id="email">
+                  </div>
+      
+                  <div class="detail">
+                      <label for="confirm_email">confirm email</label>
+                      <input type="text" id="confirm_email">
+                  </div>
+    
+                  <div class="detail">
+                      <label for="address">address</label>
+                      <input type="text" id="address">
+                  </div>
+      
+                  <div class="detail">
+                      <label for="postcode">postcode</label>
+                      <input type="text" id="postcode">
+                  </div>
+      
+                  <div class="detail">
+                      <label for="contactNumber">contact Number</label>
+                      <input type="text" id="contactNumber">
+                  </div>
+                </div>   
+              </form>
+          </div>
+          <div class = "section sizes">           
+            <h2>Select Your size</h2>
+            <div class="sizes__container">
+              <div class="size size--small" data-name = "small" data-price = "9.99" onclick="chooseSize(this)">
+                  <img src = "assets/size.png" alt="small">
+                  <div>
+                      Small
+                    <br />
+                    <span class="size__price">$9.99</span>
+                  </div>                      
+              </div>
+
+              <div class="size size--medium" data-name = "medium" data-price ="10.99"  onclick="chooseSize(this)">
+                    <img src = "assets/size.png" alt="medium">
+                  <div>
+                      Medium
+                    <br />
+                    <span class="size__price">$10.99</span>
+                  </div>                 
+              </div>
+
+              <div class="size size--large" data-name = "large" data-price = "11.9" onclick="chooseSize(this)">
+                    <img src = "assets/size.png" alt="large"> 
+                  <div>
+                      Large
+                    <br />
+                    <span class="size__price">$11.99</span>
+                  </div>  
+              </div>      
+            </div>    
+          </div>
+          <div class = "section toppings">             
+            <h3>Pick your toppings</h3>
+            <div class="toppings__container">
+              <!-- <div class="topping" data-name = "Anchovy" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/anchovy.svg" alt = "Anchovy">
+                  <span>Anchovy</span>
+              </div>
+              <div class="topping" data-name = "Bacon" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/bacon.svg" alt = "Bacon">
+                  <span>Bacon</span>
+              </div>
+              <div class="topping" data-name = "Basil" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/basil.svg" alt = "Basil">
+                  <span>Basil</span>
+              </div>
+              <div class="topping" data-name = "Chili" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/chili.svg" alt = "Chili">
+                  <span>Chili</span>
+              </div>
+              <div class="topping" data-name = "Mozzarella" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/mozzarella.svg" alt = "Mozzarella">
+                  <span>Mozzarella</span>
+              </div>
+              <div class="topping" data-name = "Mushroom" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/mushroom.svg" alt = "Mushroom">
+                  <span>Mushroom</span>
+              </div>
+              <div class="topping" data-name = "Olive" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/olive.svg" alt = "Olive">
+                  <span>Olive</span>
+              </div>
+              <div class="topping" data-name = "Onion" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/onion.svg" alt = "Onion">
+                  <span>Onion</span>
+              </div>
+              <div class="topping" data-name = "Pepper" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/pepper.svg" alt = "Pepper">
+                  <span>Pepper</span>
+              </div>
+              <div class="topping" data-name = "Pepperoni" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/pepperoni.svg" alt = "Pepperoni">
+                  <span>Pepperoni</span>
+              </div>
+              <div class="topping" data-name = "Peppers" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="./assets/toppings/peppers.svg" alt="Peppers">
+                  <span>Peppers</span>
+              </div>
+              <div class="topping" data-name = "Sweetcorn" data-price = "0.99" onclick="chooseTopping(this); ">
+                  <img src="assets/toppings/sweetcorn.svg" alt = "Sweetcorn">
+                  <span>Sweetcorn</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="section__summary">
+            <h2>Summery</h2>
+            <div class = "chosenSize"></div>
+            <div class="items"></div>
+            <hr>
+            <p class="summary__total">
+              <span>Total:</span>
+              $<span class = "summeray__totalAmount">0</span>
+            </p>
+            <p>
+              <button type="submit">
+                Place order
+              </button>
+            </p>
+          </div>
+      </section>  
+      
+      <script>
+      let toppingState = [
+        {
+          name: 'Anchovy',
+          imgSrc:'assets/toppings/anchovy.svg'
+        },
+        {
+          name: 'Bacon',
+          imgSrc:'assets/toppings/bacon.svg'
+        },
+        {
+          name: 'Basil',
+          imgSrc:'assets/toppings/basil.svg'
+        },
+        {
+          name: 'Chili',
+          imgSrc:'assets/toppings/chili.svg'
+        },
+        {
+          name: 'Mozzarella',
+          imgSrc:'assets/toppings/mozzarella.svg'
+        },
+        {
+          name: 'Mushroom',
+          imgSrc:'assets/toppings/mushroom.svg'
+        },
+        {
+          name: 'Olive',
+          imgSrc:'assets/toppings/olive.svg'
+        },
+        {
+          name: 'Onion',
+          imgSrc:'assets/toppings/onion.svg'
+        },
+        {
+          name: 'Pepper',
+          imgSrc:'assets/toppings/pepper.svg'
+        },
+        {
+          name: 'Pepperoni',
+          imgSrc:'assets/toppings/pepperoni.svg'
+        },
+        {
+          name: 'Peppers',
+          imgSrc:'./assets/toppings/peppers.svg'
+        },
+        {
+          name: 'Sweetcorn',
+          imgSrc:'assets/toppings/sweetcorn.svg'
+        }
+      ];
+
+      let chosenToppingState = ['Sweetcorn'];
+
+      function setChosenToppingsState(value){
+        chosenToppingState = value;
+        const toppingContainer = document.querySelector(".toppings__container");
+        toppingContainer.innerHTML = null;
+        const toppingDivs = renderToppingDivs(toppingState);
+        toppingContainer.append(...toppingDivs);
+      }
+
+      function renderToppingDiv({name, imgSrc}, chosenToppings){
+        const isChosen = chosenToppings.includes(name);
+        function onToppingDivClick(){
+          let newChosenToppings = chosenToppings;
+          if(!isChosen)
+          {
+            newChosenToppings = [...chosenToppings, name];
+          }else{
+            newChosenToppings = chosenToppings.fliter(chosenToppingName  => chosenToppingName !== name);
+          }
+          setChosenToppingsState(chosenToppings);
+        }
+
+        const nameSpan = document.createElement("span");
+        nameSpan.innerHTML = name;
+        const toppingImg = document.createElement("img");
+        toppingImg.src = imgSrc;
+        toppingImg.alt = name;
+        const toppingDiv = document.createElement("div");
+        toppingDiv.append(toppingImg);
+        toppingDiv.append(nameSpan);
+        toppingDiv.classList.add("topping");
+        toppingDiv.onclick = onToppingDivClick;
+
+        if(isChosen){
+          toppingDiv.classList.add("topping--active");             
+        }
+        return toppingDiv;
+      }  
+
+      function renderToppingDivs(toppings){
+        // function getToppingDivFromTopping(topping){
+        //   const { name } = topping;
+        //   const isToppingChosen = chosenToppings.includes(name);
+        //   renderToppingDiv(topping, isToppingChosen);
+        // }
+        return toppings.map(renderToppingDiv);
+      }
+
+
+      
+    </script>
+  </body>
+
+</html>
